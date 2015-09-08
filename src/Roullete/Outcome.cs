@@ -1,8 +1,8 @@
-using System;
-using System.Security.Cryptography;
-
 namespace Roullete
 {
+    using System;
+    using System.Security.Cryptography;
+
     public class Outcome
     {
         private readonly string name;
@@ -30,16 +30,22 @@ namespace Roullete
 
         public override int GetHashCode()
         {
+            var byteArrayOffset = 0;
             var hasher = SHA1.Create();
-            var identifierString = this.name + this.odds.ToString();
-            var bytesToBeConverted = System.Text.Encoding.Unicode.GetBytes(identifierString);
 
-            return BitConverter.ToInt32(hasher.ComputeHash(bytesToBeConverted), 0);
+            return BitConverter.ToInt32(hasher.ComputeHash(this.GetObjectIdentifierAsBytes()), byteArrayOffset);
         }
 
         public override string ToString()
         {
             return string.Format("{0} ({1}:1)", this.name, this.odds);
+        }
+
+        private byte[] GetObjectIdentifierAsBytes()
+        {
+            var identifierString = this.name + this.odds.ToString();
+
+            return System.Text.Encoding.Unicode.GetBytes(identifierString);
         }
     }
 }

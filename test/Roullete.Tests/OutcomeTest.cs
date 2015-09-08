@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-using Roullete;
-
 namespace Roullete.Tests
 {
+
+    using System;
+    using Xunit;
+    using Roullete;
+
     public class OutcomeTest
     {
         private readonly Outcome outcome;
